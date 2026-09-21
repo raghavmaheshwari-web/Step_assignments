@@ -1,6 +1,6 @@
 # STEP Semester 3 - Assignments
 
-Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), and Encapsulation Assignments.
+Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, and Polymorphism Assignments.
 
 ## Repository Structure
 
@@ -12,63 +12,60 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
     ├── week2/                                 # Week 2: Built-in Methods & Strings (5 Problems)
     ├── week3/                                 # Week 3: OOP Fundamentals (Category A - 5 Problems)
     ├── week4/                                 # Week 4: Constructors & Java Keywords (Category A - 5 Problems)
-    └── week5/                                 # Week 5: Access Modifiers & Encapsulation (Category A - 5 Problems)
-        ├── AccessChecker.java                 # Problems 1 & 2: Visibility rules & context linter
-        ├── LibraryMember.java                 # Problem 1: Field encapsulation & ID validation
-        ├── BookInventory.java                 # Problem 3: Book copy circulation guard
-        ├── LibraryMemberBean.java             # Problem 4: JavaBean, write-once ID, write-only answer
-        ├── LoanReceipt.java                   # Problem 5: Immutable receipt with defensive copying
-        ├── ReferenceOnlyLoanReceipt.java      # Problem 5: Subclass for reading room loans
-        ├── NightlyCirculationLedger.java      # Problem 5: Static ledger and null-safe processor
-        └── Week5TestRunner.java               # Week 5 unified test runner
+    ├── week5/                                 # Week 5: Access Modifiers & Encapsulation (Category A - 5 Problems)
+    └── week6/                                 # Week 6: Inheritance & Polymorphism (Category A - 5 Problems)
+        ├── RaceEntry.java                     # Base class (Problems 1, 3, 5)
+        ├── RunnerEntry.java                   # Single inheritance (Problems 1, 3)
+        ├── EliteRunnerEntry.java              # Multilevel inheritance (Problem 2)
+        ├── RelayTeamEntry.java                # Hierarchical inheritance (Problems 2, 4, 5)
+        ├── AnnouncerBoard.java                # Classifier & polymorphic board (Problems 2, 4)
+        └── Week6TestRunner.java               # Week 6 unified test runner
 ```
 
 ---
 
-## Week 5: Access Modifiers & Encapsulation (Category A)
+## Week 6: Inheritance & Polymorphism (Category A)
 
-1. **Problem 1: Membership Field Reach Checker**
-   - Classes: `AccessChecker`, `LibraryMember`
+1. **Problem 1: Race Entry Foundation & Batch Bib Validator**
+   - Classes: `RaceEntry`, `RunnerEntry`
    - Signatures:
-     - `static String classifyAccess(String fieldModifier, String accessorContext)`
-     - `static String summarizeByModifier(String[][] attempts)`
-     - `public LibraryMember(String membershipId, String branchCode, double finesOwed, String displayName)`
-   - Key Concepts: Real Java visibility rules across `SAME_CLASS`, `SAME_PACKAGE`, `DIFFERENT_PACKAGE`; constructor-time validation enforcing `membershipId` length >= 4 without no-arg constructor.
+     - `public RaceEntry(String bibNumber, double entryFee)`
+     - `public RunnerEntry(String bibNumber, double entryFee, String category)`
+     - `void pay(double amount)`
+     - `double getBalanceDue()`
+     - `static String registerBatch(String[] bibNumbers, double entryFee)`
+   - Key Concepts: Single inheritance (`RunnerEntry extends RaceEntry`) forwarding fields via `super(...)`; constructor validation (`bibNumber` length >= 4); batch processing catching `IllegalArgumentException`.
 
-2. **Problem 2: Reference Desk Subclass Reach**
-   - Class: `AccessChecker`
+2. **Problem 2: Three Shapes of One Race Family**
+   - Classes: `EliteRunnerEntry`, `RelayTeamEntry`, `AnnouncerBoard`
    - Signatures:
-     - `static String classifyAccess(String fieldModifier, String accessorContext)`
-     - `static String describeContext(String accessorContext)`
-   - Key Concepts: The protected cross-package rule: accessible via own subclass type (`SUBCLASS_DIFFERENT_PACKAGE_OWN_TYPE` -> `ALLOWED`), but denied via parent reference type (`SUBCLASS_DIFFERENT_PACKAGE_PARENT_TYPE` -> `DENIED`). String splitting and title casing.
+     - `public EliteRunnerEntry(String bibNumber, double entryFee, String category, double sponsorBonus)`
+     - `public RelayTeamEntry(String bibNumber, double entryFee, int teamSize)`
+     - `static String classifyGeneration(RaceEntry entry)`
+     - `static double getTotalBalanceDue(RaceEntry[] entries)`
+   - Key Concepts: Multilevel inheritance (3 generations deep) vs. hierarchical inheritance (independent sibling branch); `instanceof`-based generation classification; polymorphic total calculation without type checks.
 
-3. **Problem 3: Book Copy Circulation Guard**
-   - Class: `BookInventory`
+3. **Problem 3: The Late-Withdrawal Penalty Override & Audit Trail**
+   - Classes: `RaceEntry`, `RunnerEntry`
    - Signatures:
-     - `BookInventory(int copiesTotal)`
-     - `void checkOut()`
-     - `void checkIn()`
-     - `int getCopiesAvailable()`
-   - Key Concepts: Private state encapsulation, maintaining invariant `0 <= copiesAvailable <= copiesTotal`, constructor validation (`copiesTotal > 0`), safe state transitions.
+     - `protected void applyLateFee(double amount)`
+     - `double[] getLateFeeHistory()`
+   - Key Concepts: Polymorphic method overriding (`@Override`) doubling penalties via `super.applyLateFee(amount * 2)`; defensive copy returned from `getLateFeeHistory()` protecting private audit history from external tampering.
 
-4. **Problem 4: LibraryMember JavaBean & Write-Once / Write-Only Properties**
-   - Class: `LibraryMemberBean`
-   - Signatures:
-     - `public LibraryMemberBean()`, `public LibraryMemberBean(String name)`, `public LibraryMemberBean(String membershipId, String name)`
-     - `String getMembershipId()`, `void setMembershipId(String id)`
-     - `boolean isPremiumMember()`, `void setPremiumMember(boolean premium)`
-     - `void setSecurityAnswer(String answer)`
-   - Key Concepts: 3 chained constructors via `this(...)`, JavaBean naming conventions (`isX()` for booleans), write-once `membershipId` (silently ignores subsequent assignments), and write-only security answer with no getter.
+4. **Problem 4: The Race-Day Announcer Board**
+   - Class: `AnnouncerBoard`
+   - Signature:
+     - `static String announceAll(RaceEntry[] entries)`
+   - Key Concepts: Polymorphic dispatch calling `announce()` across mixed arrays; report construction using `StringBuilder`; safe downcasting to `RelayTeamEntry` guarded by `instanceof` to access team size (`[Team size via downcast: 4]`).
 
-5. **Problem 5: Immutable Loan Receipt & Nightly Circulation Ledger**
-   - Classes: `LoanReceipt`, `ReferenceOnlyLoanReceipt`, `NightlyCirculationLedger`
+5. **Problem 5: Race-Wide Bib Issuance, Discount Codes & Nightly Settlement**
+   - Class: `RaceEntry`
    - Signatures:
-     - `public LoanReceipt(String memberId, String[] bookIds)`
-     - `String[] getBookIds()`
-     - `LoanReceipt withCorrectedBookId(int index, String newId)`
-     - `public ReferenceOnlyLoanReceipt(String memberId, String[] bookIds, String roomNumber)`
-     - `static String processNightlyCirculation(LoanReceipt[] receipts)`
-   - Key Concepts: Construction-time format validation ("BK-" + 3 digits), defensive copying on entry and exit, wither pattern, static initialization block, null-safe batch reconciliation using `instanceof`.
+     - `void pay(double amount, String mode)` (overloaded)
+     - `static boolean isValidDiscountCode(String code)`
+     - `static int getBibCounter()`
+     - `static String settleNight(RaceEntry[] entries)`
+   - Key Concepts: Final auto-incrementing `entryCode` driven by a static `bibCounter` incremented inside base constructor; discount code validation (`"M"` + 3 digits + 1 uppercase letter) without regex; null-safe nightly batch settlement.
 
 ---
 
@@ -76,7 +73,7 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
 
 ### Compile All Source Files
 ```bash
-javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java
+javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java
 ```
 
 ### Run Unified Test Suites
@@ -95,4 +92,7 @@ java -cp bin week4.Week4TestRunner
 
 # Run Week 5 Tests
 java -cp bin week5.Week5TestRunner
+
+# Run Week 6 Tests
+java -cp bin week6.Week6TestRunner
 ```
