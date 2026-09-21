@@ -1,6 +1,6 @@
 # STEP Semester 3 - Assignments
 
-Comprehensive solutions to the STEP Semester 3 Java Programming and Object-Oriented Programming (OOP) Assignments.
+Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), and Encapsulation Assignments.
 
 ## Repository Structure
 
@@ -11,62 +11,64 @@ Comprehensive solutions to the STEP Semester 3 Java Programming and Object-Orien
     ├── week1/                                 # Week 1: Basic Arrays & Strings (5 Problems)
     ├── week2/                                 # Week 2: Built-in Methods & Strings (5 Problems)
     ├── week3/                                 # Week 3: OOP Fundamentals (Category A - 5 Problems)
-    └── week4/                                 # Week 4: Constructors & Java Keywords (Category A - 5 Problems)
-        ├── FoodOrder.java                     # Problem 1: Ghost Order Validator
-        ├── DeliverySlot.java                  # Problem 2: ASAP or Scheduled Slot Booking
-        ├── Canteen.java                       # Problem 3: Canteen Trust-Score Ranking Engine
-        ├── SurgeFeeCalculator.java            # Problem 4: Exam-Week Surge Fee Calculator
-        ├── DeliveryAccount.java               # Problem 5: Base delivery account model
-        ├── PremiumDeliveryAccount.java        # Problem 5: Premium delivery account subclass
-        ├── NightlyReconciliationEngine.java   # Problem 5: Batch reconciliation processor
-        └── Week4TestRunner.java               # Week 4 unified test runner
+    ├── week4/                                 # Week 4: Constructors & Java Keywords (Category A - 5 Problems)
+    └── week5/                                 # Week 5: Access Modifiers & Encapsulation (Category A - 5 Problems)
+        ├── AccessChecker.java                 # Problems 1 & 2: Visibility rules & context linter
+        ├── LibraryMember.java                 # Problem 1: Field encapsulation & ID validation
+        ├── BookInventory.java                 # Problem 3: Book copy circulation guard
+        ├── LibraryMemberBean.java             # Problem 4: JavaBean, write-once ID, write-only answer
+        ├── LoanReceipt.java                   # Problem 5: Immutable receipt with defensive copying
+        ├── ReferenceOnlyLoanReceipt.java      # Problem 5: Subclass for reading room loans
+        ├── NightlyCirculationLedger.java      # Problem 5: Static ledger and null-safe processor
+        └── Week5TestRunner.java               # Week 5 unified test runner
 ```
 
 ---
 
-## Week 4: Constructors & Java Keywords (Category A)
+## Week 5: Access Modifiers & Encapsulation (Category A)
 
-1. **Problem 1: Ghost Order Validator**
-   - Class: `FoodOrder`
+1. **Problem 1: Membership Field Reach Checker**
+   - Classes: `AccessChecker`, `LibraryMember`
    - Signatures:
-     - `public FoodOrder(String studentName, String dishName)`
-     - `void markDelivered()`
-     - `static void processBatch(String[][] rawOrders)`
-   - Key Concepts: Parameterized constructor with strict validation, rejecting blank/whitespace input at construction, state tracking preventing duplicate deliveries.
+     - `static String classifyAccess(String fieldModifier, String accessorContext)`
+     - `static String summarizeByModifier(String[][] attempts)`
+     - `public LibraryMember(String membershipId, String branchCode, double finesOwed, String displayName)`
+   - Key Concepts: Real Java visibility rules across `SAME_CLASS`, `SAME_PACKAGE`, `DIFFERENT_PACKAGE`; constructor-time validation enforcing `membershipId` length >= 4 without no-arg constructor.
 
-2. **Problem 2: ASAP or Scheduled — Delivery Slot Booking**
-   - Class: `DeliverySlot`
+2. **Problem 2: Reference Desk Subclass Reach**
+   - Class: `AccessChecker`
    - Signatures:
-     - `public DeliverySlot(String orderId, String timeSlot)`
-     - `public DeliverySlot(String orderId)` // chains via `this(orderId, DEFAULT_SLOT)`
-     - `boolean isPeakHour()`
-   - Key Concepts: Constructor overloading with `this(...)` chaining, single typing of constant `"ASAP"`, peak hour identification.
+     - `static String classifyAccess(String fieldModifier, String accessorContext)`
+     - `static String describeContext(String accessorContext)`
+   - Key Concepts: The protected cross-package rule: accessible via own subclass type (`SUBCLASS_DIFFERENT_PACKAGE_OWN_TYPE` -> `ALLOWED`), but denied via parent reference type (`SUBCLASS_DIFFERENT_PACKAGE_PARENT_TYPE` -> `DENIED`). String splitting and title casing.
 
-3. **Problem 3: Canteen Trust-Score Ranking Engine**
-   - Class: `Canteen`
+3. **Problem 3: Book Copy Circulation Guard**
+   - Class: `BookInventory`
    - Signatures:
-     - `public Canteen(String canteenCode, String canteenName, int trustScore)`
-     - `public Canteen(String canteenCode, String canteenName)`
-     - `int compareTo(Canteen other)`
-     - `static Canteen[] rankCanteens(Canteen[] canteens)`
-   - Key Concepts: Resolving shadowing with `this`, signed `compareTo` contract (trust score descending, case-insensitive code tie-breaking), custom $O(n^2)$ sorting implementation.
+     - `BookInventory(int copiesTotal)`
+     - `void checkOut()`
+     - `void checkIn()`
+     - `int getCopiesAvailable()`
+   - Key Concepts: Private state encapsulation, maintaining invariant `0 <= copiesAvailable <= copiesTotal`, constructor validation (`copiesTotal > 0`), safe state transitions.
 
-4. **Problem 4: Exam-Week Surge Fee Calculator**
-   - Class: `SurgeFeeCalculator`
+4. **Problem 4: LibraryMember JavaBean & Write-Once / Write-Only Properties**
+   - Class: `LibraryMemberBean`
    - Signatures:
-     - `public SurgeFeeCalculator(double minimumSurgePercent)`
-     - `final double calculateSurgeFee(double orderValue, int delayMinutes)`
-   - Key Concepts: `final` class, `final` field, and `final` method; O(1) closed-form calculation across 3 tiers (0.5%, 1%, 2%); floor rate applied only for delayed orders (`delayMinutes > 0`).
+     - `public LibraryMemberBean()`, `public LibraryMemberBean(String name)`, `public LibraryMemberBean(String membershipId, String name)`
+     - `String getMembershipId()`, `void setMembershipId(String id)`
+     - `boolean isPremiumMember()`, `void setPremiumMember(boolean premium)`
+     - `void setSecurityAnswer(String answer)`
+   - Key Concepts: 3 chained constructors via `this(...)`, JavaBean naming conventions (`isX()` for booleans), write-once `membershipId` (silently ignores subsequent assignments), and write-only security answer with no getter.
 
-5. **Problem 5: Nightly Multi-Kitchen Reconciliation Engine**
-   - Classes: `DeliveryAccount`, `PremiumDeliveryAccount`, `NightlyReconciliationEngine`
+5. **Problem 5: Immutable Loan Receipt & Nightly Circulation Ledger**
+   - Classes: `LoanReceipt`, `ReferenceOnlyLoanReceipt`, `NightlyCirculationLedger`
    - Signatures:
-     - `public DeliveryAccount(String studentId, double orderValue)`
-     - `public DeliveryAccount(String studentId)`
-     - `final double calculateSurgeFee(int delayMinutes)`
-     - `void processAccount(DeliveryAccount account, double amount, int delayMinutes)`
-     - `static void processBatch(DeliveryAccount[] accounts, double[] amounts, int[] delayMinutesArray)`
-   - Key Concepts: Static initialization block, `this(...)` constructor chaining, `instanceof` polymorphic settlement, null-safe batch iteration, operations justification for parallel array length integrity.
+     - `public LoanReceipt(String memberId, String[] bookIds)`
+     - `String[] getBookIds()`
+     - `LoanReceipt withCorrectedBookId(int index, String newId)`
+     - `public ReferenceOnlyLoanReceipt(String memberId, String[] bookIds, String roomNumber)`
+     - `static String processNightlyCirculation(LoanReceipt[] receipts)`
+   - Key Concepts: Construction-time format validation ("BK-" + 3 digits), defensive copying on entry and exit, wither pattern, static initialization block, null-safe batch reconciliation using `instanceof`.
 
 ---
 
@@ -74,7 +76,7 @@ Comprehensive solutions to the STEP Semester 3 Java Programming and Object-Orien
 
 ### Compile All Source Files
 ```bash
-javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java
+javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java
 ```
 
 ### Run Unified Test Suites
@@ -90,22 +92,7 @@ java -cp bin week3.Week3TestRunner
 
 # Run Week 4 Tests
 java -cp bin week4.Week4TestRunner
-```
 
-### Run Any Week 4 Problem Directly
-```bash
-# Problem 1
-java -cp bin week4.FoodOrder
-
-# Problem 2
-java -cp bin week4.DeliverySlot
-
-# Problem 3
-java -cp bin week4.Canteen
-
-# Problem 4
-java -cp bin week4.SurgeFeeCalculator
-
-# Problem 5
-java -cp bin week4.NightlyReconciliationEngine
+# Run Week 5 Tests
+java -cp bin week5.Week5TestRunner
 ```
