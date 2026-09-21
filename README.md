@@ -1,6 +1,6 @@
 # STEP Semester 3 - Assignments
 
-Comprehensive solutions to the STEP Semester 3 Java Programming and OOP Assignments.
+Comprehensive solutions to the STEP Semester 3 Java Programming and Object-Oriented Programming (OOP) Assignments.
 
 ## Repository Structure
 
@@ -9,56 +9,64 @@ Comprehensive solutions to the STEP Semester 3 Java Programming and OOP Assignme
 ├── README.md
 └── src/
     ├── week1/                                 # Week 1: Basic Arrays & Strings (5 Problems)
-    │   ├── SeatDuplicationChecker.java        # Problem 1: Exam Hall Seat Duplication Checker
-    │   ├── TypingAccuracyChecker.java         # Problem 2: Typing Speed Test Accuracy Checker
-    │   ├── TrafficSignalStreakAnalyzer.java   # Problem 3: Traffic Signal Streak Analyzer
-    │   ├── WarehouseInventoryBalancer.java    # Problem 4: Warehouse Inventory Balancer
-    │   ├── MovieReviewWordLengthProfiler.java  # Problem 5: Movie Review Word Length Profiler
-    │   └── Week1TestRunner.java               # Week 1 test runner
     ├── week2/                                 # Week 2: Built-in Methods & Strings (5 Problems)
-    │   ├── AtmPinLengthValidator.java         # Problem 1: ATM PIN Length Validator
-    │   ├── WordReversalEncoder.java           # Problem 2: Word Reversal Encoder
-    │   ├── ProductInventoryCsvParser.java     # Problem 3: Product Inventory CSV Parser
-    │   ├── LibraryIsbnValidator.java          # Problem 4: Library ISBN Normalizer & Validator
-    │   ├── StopWordFrequencyReporter.java     # Problem 5: Stop-Word-Filtered Word Frequency Report
-    │   └── Week2TestRunner.java               # Week 2 test runner
-    └── week3/                                 # Week 3: OOP Fundamentals (Category A - 5 Problems)
-        ├── Employee.java                      # Base Employee class (F2, F5)
-        ├── ManagerEmployee.java               # ManagerEmployee with bonus (F2, F5)
-        ├── InternEmployee.java                # InternEmployee with stipend cap (F2, F5)
-        ├── ParkingSlot.java                   # ParkingSlot model with allotment (F3, F5)
-        ├── LibraryFineSystem.java             # Problem F1: Library Fine System
-        ├── EmployeeInheritanceHierarchy.java  # Problem F2: Inheritance & instanceof dispatch
-        ├── ParkingSlotAllocationSystem.java   # Problem F3: References & null safety
-        ├── LibraryMemberBoundaryDemo.java     # Problem F4: Instance vs static boundary bug & fix
-        ├── HrParkingMiniSystem.java           # Problem F5: Capstone HR + Parking composition
-        └── Week3TestRunner.java               # Week 3 test runner
+    ├── week3/                                 # Week 3: OOP Fundamentals (Category A - 5 Problems)
+    └── week4/                                 # Week 4: Constructors & Java Keywords (Category A - 5 Problems)
+        ├── FoodOrder.java                     # Problem 1: Ghost Order Validator
+        ├── DeliverySlot.java                  # Problem 2: ASAP or Scheduled Slot Booking
+        ├── Canteen.java                       # Problem 3: Canteen Trust-Score Ranking Engine
+        ├── SurgeFeeCalculator.java            # Problem 4: Exam-Week Surge Fee Calculator
+        ├── DeliveryAccount.java               # Problem 5: Base delivery account model
+        ├── PremiumDeliveryAccount.java        # Problem 5: Premium delivery account subclass
+        ├── NightlyReconciliationEngine.java   # Problem 5: Batch reconciliation processor
+        └── Week4TestRunner.java               # Week 4 unified test runner
 ```
 
 ---
 
-## Week 3: OOP Fundamentals (Category A)
+## Week 4: Constructors & Java Keywords (Category A)
 
-1. **Problem F1: Library Fine System**
-   - Class: `BookIssue`
-   - Methods: `double fineAmount()`, `boolean isSeverelyOverdue()`, `static double totalFineCollected(BookIssue[] issues)`
-   - Highlights: Demonstrates why `fineAmount()` is an instance method (depends on individual `daysOverdue` state) whereas `totalFineCollected()` is static (operates on collections as a utility service).
+1. **Problem 1: Ghost Order Validator**
+   - Class: `FoodOrder`
+   - Signatures:
+     - `public FoodOrder(String studentName, String dishName)`
+     - `void markDelivered()`
+     - `static void processBatch(String[][] rawOrders)`
+   - Key Concepts: Parameterized constructor with strict validation, rejecting blank/whitespace input at construction, state tracking preventing duplicate deliveries.
 
-2. **Problem F2: Extending Employee Without Touching It**
-   - Classes: `Employee`, `ManagerEmployee`, `InternEmployee`
-   - Highlights: Demonstrates Open-Closed Principle using inheritance (`extends`), constructor chaining with `super()`, and dynamic dispatch with `instanceof`.
+2. **Problem 2: ASAP or Scheduled — Delivery Slot Booking**
+   - Class: `DeliverySlot`
+   - Signatures:
+     - `public DeliverySlot(String orderId, String timeSlot)`
+     - `public DeliverySlot(String orderId)` // chains via `this(orderId, DEFAULT_SLOT)`
+     - `boolean isPeakHour()`
+   - Key Concepts: Constructor overloading with `this(...)` chaining, single typing of constant `"ASAP"`, peak hour identification.
 
-3. **Problem F3: Object References, Null Safety, and a Mutating Method**
-   - Class: `ParkingSlot`, methods `findAvailableSlot()`, `safeAllot()`
-   - Highlights: Explains Java pass-by-value reference semantics (why arrays are not cloned) and defensive null checks eliminating `NullPointerException`.
+3. **Problem 3: Canteen Trust-Score Ranking Engine**
+   - Class: `Canteen`
+   - Signatures:
+     - `public Canteen(String canteenCode, String canteenName, int trustScore)`
+     - `public Canteen(String canteenCode, String canteenName)`
+     - `int compareTo(Canteen other)`
+     - `static Canteen[] rankCanteens(Canteen[] canteens)`
+   - Key Concepts: Resolving shadowing with `this`, signed `compareTo` contract (trust score descending, case-insensitive code tie-breaking), custom $O(n^2)$ sorting implementation.
 
-4. **Problem F4: Designing the Instance/Static Boundary**
-   - Classes: `BrokenLibraryMember` vs `LibraryMember`
-   - Highlights: Reproduces real-world bug where marking fields static overwrites individual member identities; demonstrates the proper fix with auto-generated IDs (`LM-1001`, `LM-1002`).
+4. **Problem 4: Exam-Week Surge Fee Calculator**
+   - Class: `SurgeFeeCalculator`
+   - Signatures:
+     - `public SurgeFeeCalculator(double minimumSurgePercent)`
+     - `final double calculateSurgeFee(double orderValue, int delayMinutes)`
+   - Key Concepts: `final` class, `final` field, and `final` method; O(1) closed-form calculation across 3 tiers (0.5%, 1%, 2%); floor rate applied only for delayed orders (`delayMinutes > 0`).
 
-5. **Problem F5: Capstone Mini-System (HR + Parking Allocation)**
-   - Class: `CompanyEmployeeRecord`
-   - Highlights: Object composition (objects holding object references), polymorphic pay calculation, null-safe parking slot display, and static record counter.
+5. **Problem 5: Nightly Multi-Kitchen Reconciliation Engine**
+   - Classes: `DeliveryAccount`, `PremiumDeliveryAccount`, `NightlyReconciliationEngine`
+   - Signatures:
+     - `public DeliveryAccount(String studentId, double orderValue)`
+     - `public DeliveryAccount(String studentId)`
+     - `final double calculateSurgeFee(int delayMinutes)`
+     - `void processAccount(DeliveryAccount account, double amount, int delayMinutes)`
+     - `static void processBatch(DeliveryAccount[] accounts, double[] amounts, int[] delayMinutesArray)`
+   - Key Concepts: Static initialization block, `this(...)` constructor chaining, `instanceof` polymorphic settlement, null-safe batch iteration, operations justification for parallel array length integrity.
 
 ---
 
@@ -66,7 +74,7 @@ Comprehensive solutions to the STEP Semester 3 Java Programming and OOP Assignme
 
 ### Compile All Source Files
 ```bash
-javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java
+javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java
 ```
 
 ### Run Unified Test Suites
@@ -79,22 +87,25 @@ java -cp bin week2.Week2TestRunner
 
 # Run Week 3 Tests
 java -cp bin week3.Week3TestRunner
+
+# Run Week 4 Tests
+java -cp bin week4.Week4TestRunner
 ```
 
-### Run Any Week 3 Problem Directly
+### Run Any Week 4 Problem Directly
 ```bash
-# Problem F1
-java -cp bin week3.LibraryFineSystem
+# Problem 1
+java -cp bin week4.FoodOrder
 
-# Problem F2
-java -cp bin week3.EmployeeInheritanceHierarchy
+# Problem 2
+java -cp bin week4.DeliverySlot
 
-# Problem F3
-java -cp bin week3.ParkingSlotAllocationSystem
+# Problem 3
+java -cp bin week4.Canteen
 
-# Problem F4
-java -cp bin week3.LibraryMemberBoundaryDemo
+# Problem 4
+java -cp bin week4.SurgeFeeCalculator
 
-# Problem F5
-java -cp bin week3.HrParkingMiniSystem
+# Problem 5
+java -cp bin week4.NightlyReconciliationEngine
 ```
