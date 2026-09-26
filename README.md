@@ -1,6 +1,6 @@
 # STEP Semester 3 - Assignments
 
-Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, and Interface Assignments.
+Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, Interfaces, Object Class Methods, Inner Classes, Composition, and System Design Assignments.
 
 ## Repository Structure
 
@@ -14,83 +14,84 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
     ├── week4/                                 # Week 4: Constructors & Java Keywords (Category A - 5 Problems)
     ├── week5/                                 # Week 5: Access Modifiers & Encapsulation (Category A - 5 Problems)
     ├── week6/                                 # Week 6: Inheritance & Polymorphism (Category A - 5 Problems)
-    └── week7/                                 # Week 7: Abstraction & Interface (Category A - 5 Problems)
-        ├── Shape.java                         # Problem 1: Abstract Shape with overloaded scale()
-        ├── CircleShape.java                   # Problem 1: Circle implementation
-        ├── SquareShape.java                   # Problem 1: Square implementation
-        ├── ShapeAreaPrinter.java              # Problem 1: Polymorphic area printer
-        ├── Exportable.java                    # Problem 2: Exportable interface
-        ├── ReportGenerator.java               # Problem 2: Unrelated Exportable report
-        ├── UserProfile.java                   # Problem 2: Unrelated Exportable user profile
-        ├── ExportManager.java                 # Problem 2: Shared static counter & exportAll()
-        ├── ServiceableVehicle.java            # Problem 3: Abstract vehicle with private mileage
-        ├── Insurable.java                     # Problem 3: Insurance capability interface
-        ├── Forklift.java                      # Problem 3: Forklift implementation
-        ├── HeavyDutyForklift.java             # Problem 3: Multilevel forklift with extra check
-        ├── FleetTracker.java                  # Problem 3: Insurance inspector helper
-        ├── Attackable.java                    # Problem 4: Overloaded attack interface
-        ├── Defendable.java                    # Problem 4: Defense interface
-        ├── GameCharacter.java                 # Problem 4: Abstract character with ID counter
-        ├── Warrior.java                       # Problem 4: Warrior implementing Attackable & Defendable
-        ├── Trap.java                          # Problem 4: Trap implementing only Defendable
-        ├── ArenaBattleSimulator.java          # Problem 4: resolveDefense processor
-        ├── HomeDevice.java                    # Problem 5: Abstract device with serial number
-        ├── RemoteControllable.java            # Problem 5: Remote control interface
-        ├── EnergyTrackable.java               # Problem 5: Energy tracking interface
-        ├── WashingMachine.java                # Problem 5: WashingMachine (both interfaces)
-        ├── Refrigerator.java                  # Problem 5: Refrigerator (EnergyTrackable only)
-        ├── MobileApp.java                     # Problem 5: MobileApp (RemoteControllable only)
-        ├── SmartHomeController.java           # Problem 5: connectAll & consumption inspector
-        └── Week7TestRunner.java               # Week 7 unified test runner
+    ├── week7/                                 # Week 7: Abstraction & Interface (Category A - 5 Problems)
+    └── week8/                                 # Week 8: Object Methods, Inner Classes & System Design (Category A - 5 Problems)
+        ├── q1_hackathon/                      # Problem 1: The Code Sprint Judging Desk
+        │   ├── ScoringTrack.java              # Strategy interface for track scoring
+        │   ├── InnovationTrack.java           # Weighted scoring strategy (50% / 30% / 20%)
+        │   ├── OpenTrack.java                 # Simple average scoring strategy
+        │   ├── Student.java                   # Student entity with Object equals/hashCode
+        │   ├── Team.java                      # Team entity with size validation (2-4 members)
+        │   ├── Score.java                     # Ratings & computed final score
+        │   ├── Project.java                   # Project model
+        │   ├── Judge.java                     # Judge scoring actor
+        │   ├── Hackathon.java                 # Lifecycle: OPEN -> JUDGING -> PUBLISHED
+        │   └── HackathonSystem.java           # Problem 1 runner demo
+        ├── q2_parcel/                         # Problem 2: The SwiftShip Parcel Tracker
+        │   ├── ParcelStatus.java              # FSM statuses & transition rules
+        │   ├── ShippingType.java              # Strategy interface for shipping charges
+        │   ├── StandardShipping.java          # Base ₹40 + ₹10/kg
+        │   ├── ExpressShipping.java           # Base ₹80 + ₹15/kg
+        │   ├── FragileShipping.java           # Reuses Standard via composition + ₹50 fee
+        │   ├── NotificationChannel.java       # Observer interface
+        │   ├── SmsChannel.java                # Concrete SMS observer
+        │   ├── EmailChannel.java              # Concrete Email observer
+        │   ├── Customer.java                  # Customer model
+        │   ├── Parcel.java                    # Parcel state machine & observer registry
+        │   ├── ParcelService.java             # Booking and transition service
+        │   └── ParcelTrackerSystem.java       # Problem 2 runner demo
+        ├── q3_smartlab/                       # Problem 3: The Smart Lab Control Panel
+        │   ├── Capability.java                # Capability interface
+        │   ├── PowerCapability.java           # Binary power capability (ON/OFF)
+        │   ├── BrightnessCapability.java      # Brightness capability (0-100%)
+        │   ├── TemperatureCapability.java     # Temperature capability (16-30°C)
+        │   ├── Device.java                    # Device holding dynamic capabilities
+        │   ├── SceneStep.java                 # Functional step targeting capabilities
+        │   ├── Scene.java                     # Ordered execution engine across devices
+        │   └── SmartLabSystem.java            # Problem 3 runner demo
+        ├── q4_elective/                       # Problem 4: The Elective Seat Rush
+        │   ├── CreditPolicy.java              # Interface for student credit policies
+        │   ├── StudentType.java               # Regular (24), Honors (28), Exchange (20)
+        │   ├── Student.java                   # Student entity with credit tracking
+        │   ├── Elective.java                  # Course with capacity & FIFO waitlist
+        │   ├── EnrollmentService.java         # Enrollment & drop coordination
+        │   └── ElectiveSystem.java            # Problem 4 runner demo
+        ├── q5_smartcard/                      # Problem 5: The Campus Canteen Smart Card
+        │   ├── PricingPlan.java               # Discount strategy interface
+        │   ├── DayScholarPlan.java            # 0% discount
+        │   ├── HostellerPlan.java             # 10% discount
+        │   ├── StaffPlan.java                 # 20% discount
+        │   ├── CardStatus.java                # ACTIVE / BLOCKED status enum
+        │   ├── TransactionType.java           # TOP_UP, PURCHASE, REFUND
+        │   ├── Transaction.java               # Immutable transaction ledger record
+        │   ├── SmartCard.java                 # Ledger invariant & one-time refund
+        │   └── SmartCardSystem.java           # Problem 5 runner demo
+        └── Week8TestRunner.java               # Unified Week 8 test suite
 ```
 
 ---
 
-## Week 7: Abstraction & Interface (Category A)
+## Week 8: Object Methods, Inner Classes, Composition & System Design (Category A)
 
-1. **Problem 1: Basic Drawing Canvas**
-   - Classes: `Shape`, `CircleShape`, `SquareShape`, `ShapeAreaPrinter`
-   - Signatures:
-     - `public abstract class Shape`
-     - `public abstract double calculateArea()`
-     - `void scale(double factor)`
-     - `void scale(double xFactor, double yFactor)`
-     - `static void printArea(Shape s)`
-   - Key Concepts: Abstract classes prohibiting direct instantiation (`new Shape()` fails); compile-time polymorphism through overloaded concrete `scale()` methods; polymorphic area computation.
+1. **Problem 1: The Code Sprint Judging Desk (`q1_hackathon`)**
+   - **Key Classes**: `ScoringTrack`, `InnovationTrack`, `OpenTrack`, `Student`, `Team`, `Project`, `Score`, `Judge`, `Hackathon`
+   - **Key Concepts**: Strategy pattern for multi-track scoring rules; team size constraints (2 to 4 members); one-team-per-student invariant; hackathon lifecycle state machine (`OPEN` → `JUDGING` → `PUBLISHED`); score locking post-publication (`Rescore rejected: Results have already been published.`).
 
-2. **Problem 2: One-Click Data Export**
-   - Classes: `Exportable`, `ReportGenerator`, `UserProfile`, `ExportManager`
-   - Signatures:
-     - `public interface Exportable { String exportData(); }`
-     - `static int getTotalExports()`
-     - `static void exportAll(Exportable[] items)`
-   - Key Concepts: Decoupling completely unrelated classes through a shared interface without an artificial parent class; unified batch export and single shared static export counter.
+2. **Problem 2: The SwiftShip Parcel Tracker (`q2_parcel`)**
+   - **Key Classes**: `ParcelStatus`, `ShippingType`, `StandardShipping`, `ExpressShipping`, `FragileShipping`, `NotificationChannel`, `SmsChannel`, `EmailChannel`, `Customer`, `Parcel`, `ParcelService`
+   - **Key Concepts**: Finite State Machine for parcel transitions (`BOOKED` → `PICKED_UP` → `IN_TRANSIT` → `OUT_FOR_DELIVERY` → `DELIVERED`); status-conditional cancellation (only while `BOOKED`); composition over inheritance in `FragileShipping`; Observer pattern for real-time multi-channel updates.
 
-3. **Problem 3: Fleet Maintenance Tracker**
-   - Classes: `ServiceableVehicle`, `Insurable`, `Forklift`, `HeavyDutyForklift`, `FleetTracker`
-   - Signatures:
-     - `public abstract class ServiceableVehicle`
-     - `public interface Insurable { String getInsuranceInfo(); }`
-     - `static String getInsuranceIfApplicable(ServiceableVehicle v)`
-   - Key Concepts: Encapsulating mileage with validation (`addMileage` rejects negative km); 3-level multilevel inheritance (`ServiceableVehicle` -> `Forklift` -> `HeavyDutyForklift`) appending checks via `super.performMaintenance()`; safe `instanceof` inspection for insurance capability.
+3. **Problem 3: The Smart Lab Control Panel (`q3_smartlab`)**
+   - **Key Classes**: `Capability`, `PowerCapability`, `BrightnessCapability`, `TemperatureCapability`, `Device`, `SceneStep`, `Scene`
+   - **Key Concepts**: Component-based capability architecture avoiding class explosion; dynamic runtime addition of capabilities (`Device.addCapability(...)`); encapsulated range validation (0–100% brightness, 16–30°C temperature); scene execution filtering matching devices and skipping non-supporting devices.
 
-4. **Problem 4: Arena Battle Simulator**
-   - Classes: `Attackable`, `Defendable`, `GameCharacter`, `Warrior`, `Trap`, `ArenaBattleSimulator`
-   - Signatures:
-     - `public interface Attackable { String attack(); String attack(String weaponName); }`
-     - `public interface Defendable { String defend(); }`
-     - `static void resolveDefense(Defendable[] combatants)`
-   - Key Concepts: Multiple interface implementation (`Warrior` implements `Attackable` and `Defendable`); compile-time overloaded `attack()` methods; non-character entities (`Trap`) implementing only `Defendable`; polymorphic resolution.
+4. **Problem 4: The Elective Seat Rush (`q4_elective`)**
+   - **Key Classes**: `CreditPolicy`, `StudentType`, `Student`, `Elective`, `EnrollmentService`
+   - **Key Concepts**: Pluggable credit policies (`Regular` max 24, `Honors` max 28, `Exchange` max 20); credit limit verification prioritized before seat check; bounded seat capacity; private FIFO waitlist queue; atomic drop-and-promote workflow with re-validation.
 
-5. **Problem 5: Connected Home Control Panel**
-   - Classes: `HomeDevice`, `RemoteControllable`, `EnergyTrackable`, `WashingMachine`, `Refrigerator`, `MobileApp`, `SmartHomeController`
-   - Signatures:
-     - `public abstract class HomeDevice`
-     - `public interface RemoteControllable { String connect(String appId); }`
-     - `public interface EnergyTrackable { double getConsumptionWatts(); }`
-     - `static void connectAll(RemoteControllable[] items, String appId)`
-     - `static double getConsumptionIfTrackable(HomeDevice d)`
-   - Key Concepts: Sibling classes (`WashingMachine`, `Refrigerator`) adopting different capabilities under the same abstract parent; standalone classes (`MobileApp`) implementing interfaces without extending the device hierarchy; safe `instanceof` energy inspection.
+5. **Problem 5: The Campus Canteen Smart Card (`q5_smartcard`)**
+   - **Key Classes**: `PricingPlan`, `DayScholarPlan`, `HostellerPlan`, `StaffPlan`, `CardStatus`, `TransactionType`, `Transaction`, `SmartCard`
+   - **Key Concepts**: Accounting ledger invariant where card balance is strictly derived as the sum of recorded transactions (`balance = sum(transactions)`); plan-based pricing strategies; single-refund guard preventing double refunds; card blocking state; formatted mini-statement generation.
 
 ---
 
@@ -98,7 +99,7 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
 
 ### Compile All Source Files
 ```bash
-javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java
+javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java src/week8/*.java src/week8/*/*.java
 ```
 
 ### Run Unified Test Suites
@@ -123,4 +124,7 @@ java -cp bin week6.Week6TestRunner
 
 # Run Week 7 Tests
 java -cp bin week7.Week7TestRunner
+
+# Run Week 8 Tests
+java -cp bin week8.Week8TestRunner
 ```
