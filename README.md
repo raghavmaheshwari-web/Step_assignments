@@ -1,6 +1,6 @@
 # STEP Semester 3 - Assignments
 
-Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, Interfaces, Object Class Methods, Inner Classes, Composition, System Design, and Data Structures Assignments.
+Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, Interfaces, Object Class Methods, Inner Classes, Composition, System Design, Data Structures, and Linked Lists Assignments.
 
 ## Repository Structure
 
@@ -22,13 +22,20 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
     │   ├── q4_elective/                       # Problem 4: The Elective Seat Rush
     │   ├── q5_smartcard/                      # Problem 5: The Campus Canteen Smart Card
     │   └── Week8TestRunner.java               # Unified Week 8 test suite
-    └── week9/                                 # Week 9: Data Structures (Category A - 5 Problems)
-        ├── MallFootfallReport.java            # Problem 1: Prefix Sum Range Queries
-        ├── BudgetFriendlyStreak.java          # Problem 2: Two-Pointer Sliding Window
-        ├── NetBalancePeriodCounter.java       # Problem 3: Prefix Sum + Hash Map
-        ├── ExamScoreBandCounter.java          # Problem 4: Binary Search Lower/Upper Bounds
-        ├── SpiralStockAuditRoute.java         # Problem 5: 2D Grid Clockwise Spiral Traversal
-        └── Week9TestRunner.java               # Unified Week 9 test suite
+    ├── week9/                                 # Week 9: Data Structures (Category A - 5 Problems)
+    │   ├── MallFootfallReport.java            # Problem 1: Prefix Sum Range Queries
+    │   ├── BudgetFriendlyStreak.java          # Problem 2: Two-Pointer Sliding Window
+    │   ├── NetBalancePeriodCounter.java       # Problem 3: Prefix Sum + Hash Map
+    │   ├── ExamScoreBandCounter.java          # Problem 4: Binary Search Lower/Upper Bounds
+    │   ├── SpiralStockAuditRoute.java         # Problem 5: 2D Grid Clockwise Spiral Traversal
+    │   └── Week9TestRunner.java               # Unified Week 9 test suite
+    └── week10/                                # Week 10: Linked Lists (Category A - 5 Problems)
+        ├── OrderCancellation.java             # Problem 1: Cancelling the k-th Last Order
+        ├── BrowserHistory.java                # Problem 2: Campus Portal Browser History
+        ├── TicketCounterMerger.java           # Problem 3: Merging Two Ticket Counters
+        ├── PalindromeTrainCode.java           # Problem 4: The Palindrome Train Code
+        ├── PolynomialCalculator.java          # Problem 5: Polynomial Calculator
+        └── Week10TestRunner.java              # Unified Week 10 test suite
 ```
 
 ---
@@ -61,33 +68,57 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
 
 1. **Problem 1: Mall Footfall Range Report (`MallFootfallReport.java`)**
    - **Core Concept**: 1D Prefix Sums
-   - **Time Complexity**: $O(N)$ one-time preprocessing, $O(1)$ per query $\rightarrow O(N + Q)$ total time vs. $O(Q \times N)$ naive.
-   - **Space Complexity**: $O(N)$ for prefix sum array.
+   - **Complexity**: $O(N)$ one-time preprocessing, $O(1)$ per query $\rightarrow O(N + Q)$ total time vs. $O(Q \times N)$ naive; $O(N)$ space.
    - **Trade-off Analysis**: Precomputation cost is worth paying when $Q \ge 1$ repeated range queries occur, transforming $O(N)$ linear scans into instant $O(1)$ boundary subtractions.
 
 2. **Problem 2: Longest Budget-Friendly Streak (`BudgetFriendlyStreak.java`)**
    - **Core Concept**: Dynamic Two-Pointer / Sliding Window
-   - **Time Complexity**: $O(N)$ vs. $O(N^2)$ brute-force check.
-   - **Space Complexity**: $O(1)$ auxiliary space.
+   - **Complexity**: $O(N)$ time vs. $O(N^2)$ brute-force check; $O(1)$ auxiliary space.
    - **Trade-off Analysis**: Non-negativity of snack costs ($costs[i] \ge 0$) establishes monotonicity: extending the right pointer never decreases the sum, and advancing the left pointer never increases it. Strictly greater comparison (`>`) preserves earliest start index on ties.
 
 3. **Problem 3: Net-Balance Period Counter (`NetBalancePeriodCounter.java`)**
    - **Core Concept**: Prefix Sum + Frequency Hash Map
-   - **Time Complexity**: $O(N)$ average time vs. $O(N^2)$ brute-force.
-   - **Space Complexity**: $O(N)$ to store prefix sum frequencies.
-   - **Trade-off Analysis**: Because transaction values can be negative (debits), monotonicity is broken and sliding window fails. Maintaining running prefix sum $S$ and querying previous count of $S - k$ correctly accounts for all contiguous sub-periods summing to $k$.
+   - **Complexity**: $O(N)$ average time vs. $O(N^2)$ brute-force; $O(N)$ space.
+   - **Trade-off Analysis**: Because transaction values can be negative (debits), monotonicity is broken and sliding window fails. Maintaining running prefix sum $S$ and querying previous count of $S - k$ accounts for all contiguous sub-periods summing to $k$.
 
 4. **Problem 4: Exam Score Band Counter (`ExamScoreBandCounter.java`)**
    - **Core Concept**: Binary Search (Lower Bound & Upper Bound)
-   - **Time Complexity**: $O(\log N)$ per query vs. $O(N)$ linear scan.
-   - **Space Complexity**: $O(1)$ auxiliary space.
+   - **Complexity**: $O(\log N)$ per query vs. $O(N)$ linear scan; $O(1)$ auxiliary space.
    - **Trade-off Analysis**: Standard binary search stops at arbitrary occurrences of duplicates. Using lower bound (first index $\ge low$) and upper bound (first index $> high$) handles repeating marks at band edges in logarithmic time.
 
 5. **Problem 5: Spiral Stock Audit Route (`SpiralStockAuditRoute.java`)**
    - **Core Concept**: 2D Grid Clockwise Spiral Traversal with Boundary Shrinking
-   - **Time Complexity**: $O(m \times n)$ visiting each warehouse bin cell exactly once.
-   - **Space Complexity**: $O(1)$ auxiliary space (excluding returned traversal list).
+   - **Complexity**: $O(m \times n)$ time visiting each warehouse bin cell exactly once; $O(1)$ auxiliary space.
    - **Trade-off Analysis**: Moving four directional boundaries (`top`, `bottom`, `left`, `right`) with guard checks before bottom-row and left-column walks ensures rectangular grids (where $m \neq n$) never revisit single-row or single-column remnants.
+
+---
+
+## Week 10: Linked Lists (Category A)
+
+1. **Problem 1: Cancelling the k-th Last Order (`OrderCancellation.java`)**
+   - **Core Concept**: Single-pass Two-Pointer (Lead and Trailing) with Sentinel Dummy Node
+   - **Complexity**: $O(N)$ time single pass, $O(1)$ auxiliary space.
+   - **Head Removal Without Special Case**: A sentinel dummy node placed before `head` allows a lead pointer moved $k + 1$ steps ahead to position the trailing pointer directly prior to the node targeted for deletion. When removing `head`, `trailing` rests at `dummy`, seamlessly relinking `dummy.next = head.next` without special branching.
+
+2. **Problem 2: Campus Portal Browser History (`BrowserHistory.java`)**
+   - **Core Concept**: Doubly Linked List Navigation
+   - **Complexity**: $O(1)$ per `visit`, $O(\min(\text{steps}, \text{distance to head/tail}))$ per `back` / `forward`; $O(V)$ space for $V$ active history nodes.
+   - **Discarding Forward History**: Setting `current.next = newNode` and `newNode.prev = current` detaches the entire previous forward chain in $O(1)$ time; unreferenced forward nodes are garbage collected automatically.
+
+3. **Problem 3: Merging Two Ticket Counters (`TicketCounterMerger.java`)**
+   - **Core Concept**: In-place Sorted Singly Linked List Merge
+   - **Complexity**: $O(m + n)$ time, $O(1)$ auxiliary space (single dummy node, existing nodes relinked).
+   - **Comparison with Sorting**: Copying both lists into an array and sorting requires $O((m+n)\log(m+n))$ time and $O(m+n)$ auxiliary memory. In-place relinking achieves strictly linear $O(m+n)$ time and $O(1)$ extra memory.
+
+4. **Problem 4: The Palindrome Train Code (`PalindromeTrainCode.java`)**
+   - **Core Concept**: In-place Midpoint Reversal, Comparison, and Restoration
+   - **Complexity**: $O(N)$ time (midpoint $N/2$, reverse $N/2$, compare $N/2$, restore $N/2$), $O(1)$ auxiliary space.
+   - **Comparison with Array Copy**: Array copies or recursive call stacks require $O(N)$ extra memory. In-place reversal verifies the palindrome condition in $O(1)$ space and fully restores the original linked list before returning.
+
+5. **Problem 5: Polynomial Calculator (`PolynomialCalculator.java`)**
+   - **Core Concept**: Two-Way Linked List Merge & Standard Mathematical Formatting
+   - **Complexity**: $O(m + n)$ time visiting each term once, $O(m + n)$ space for the combined polynomial.
+   - **Zero-Term Cancellation & Formatting**: Terms whose coefficients sum to 0 are excluded from the resultant list. Output is formatted cleanly into standard mathematical notation (e.g. `5x^3 + 9x^2 - 3x + 3`).
 
 ---
 
@@ -95,7 +126,7 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
 
 ### Compile All Source Files
 ```bash
-javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java src/week8/*.java src/week8/*/*.java src/week9/*.java
+javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java src/week8/*.java src/week8/*/*.java src/week9/*.java src/week10/*.java
 ```
 
 ### Run Unified Test Suites
@@ -126,4 +157,7 @@ java -cp bin week8.Week8TestRunner
 
 # Run Week 9 Tests
 java -cp bin week9.Week9TestRunner
+
+# Run Week 10 Tests
+java -cp bin week10.Week10TestRunner
 ```
