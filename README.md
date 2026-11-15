@@ -1,6 +1,6 @@
 # STEP Semester 3 - Assignments
 
-Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, Interfaces, Object Class Methods, Inner Classes, Composition, System Design, Data Structures, and Linked Lists Assignments.
+Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, Interfaces, Object Class Methods, Inner Classes, Composition, System Design, Data Structures, Linked Lists, Stacks, Queues, and Graph Search Assignments.
 
 ## Repository Structure
 
@@ -29,13 +29,20 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
     │   ├── ExamScoreBandCounter.java          # Problem 4: Binary Search Lower/Upper Bounds
     │   ├── SpiralStockAuditRoute.java         # Problem 5: 2D Grid Clockwise Spiral Traversal
     │   └── Week9TestRunner.java               # Unified Week 9 test suite
-    └── week10/                                # Week 10: Linked Lists (Category A - 5 Problems)
-        ├── OrderCancellation.java             # Problem 1: Cancelling the k-th Last Order
-        ├── BrowserHistory.java                # Problem 2: Campus Portal Browser History
-        ├── TicketCounterMerger.java           # Problem 3: Merging Two Ticket Counters
-        ├── PalindromeTrainCode.java           # Problem 4: The Palindrome Train Code
-        ├── PolynomialCalculator.java          # Problem 5: Polynomial Calculator
-        └── Week10TestRunner.java              # Unified Week 10 test suite
+    ├── week10/                                # Week 10: Linked Lists (Category A - 5 Problems)
+    │   ├── OrderCancellation.java             # Problem 1: Cancelling the k-th Last Order
+    │   ├── BrowserHistory.java                # Problem 2: Campus Portal Browser History
+    │   ├── TicketCounterMerger.java           # Problem 3: Merging Two Ticket Counters
+    │   ├── PalindromeTrainCode.java           # Problem 4: The Palindrome Train Code
+    │   ├── PolynomialCalculator.java          # Problem 5: Polynomial Calculator
+    │   └── Week10TestRunner.java              # Unified Week 10 test suite
+    └── week11/                                # Week 11: Stacks, Queues & BFS (Category A - 5 Problems)
+        ├── CanteenPriceStreak.java            # Problem 1: The Canteen Price Streak (Monotonic Stack)
+        ├── HackathonBannerPrinter.java        # Problem 2: The Hackathon Banner Printer (Two-Stack Decoding)
+        ├── QuizScoringFormula.java            # Problem 3: The Quiz Scoring Formula (Two-Stack Direct Evaluation)
+        ├── BusBay.java                        # Problem 4: The Bus Bay Ring (Circular Buffer Deque)
+        ├── FireDrillExits.java                # Problem 5: The Fire Drill Exits (Multi-Source BFS)
+        └── Week11TestRunner.java              # Unified Week 11 test suite
 ```
 
 ---
@@ -122,11 +129,40 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
 
 ---
 
+## Week 11: Stacks, Queues & Breadth-First Search (Category A)
+
+1. **Problem 1: The Canteen Price Streak (`CanteenPriceStreak.java`)**
+   - **Core Concept**: Monotonic Stack (storing indices in decreasing order of prices)
+   - **Complexity**: $O(N)$ time (each index pushed and popped at most once) vs. $O(N^2)$ nested loops; $O(N)$ auxiliary space.
+   - **Key Mechanism**: Day indices whose prices are $\le$ today's price are popped since today's higher price shadows them from blocking future streaks.
+
+2. **Problem 2: The Hackathon Banner Printer (`HackathonBannerPrinter.java`)**
+   - **Core Concept**: Two-Stack Decompression (`countStack` & `textStack`) without recursion
+   - **Complexity**: $O(L)$ time where $L$ is total expanded output length; $O(D + L)$ space where $D$ is bracket nesting depth.
+   - **Key Mechanism**: On `[`, current count and context builder are pushed and a fresh builder begins; on `]`, count and previous builder are popped, repeating and appending the inner string.
+
+3. **Problem 3: The Quiz Scoring Formula (`QuizScoringFormula.java`)**
+   - **Core Concept**: Dijkstra's Two-Stack Direct Infix Evaluation
+   - **Complexity**: $O(N)$ single pass; $O(N)$ space for operand and operator stacks.
+   - **Key Mechanism**: Operator precedence and parentheses resolution applied on-the-fly without intermediate postfix string conversion.
+
+4. **Problem 4: The Bus Bay Ring (`BusBay.java`)**
+   - **Core Concept**: Circular Double-Ended Queue (Deque) Ring Buffer on Fixed-Size Array
+   - **Complexity**: Strict $O(1)$ time for all operations (`insertFront`, `insertLast`, `deleteFront`, `deleteLast`, `getFront`, `getRear`, `isEmpty`, `isFull`); $O(\text{capacity})$ fixed array space.
+   - **Key Mechanism**: Modular arithmetic (`(front - 1 + capacity) % capacity` and `(front + size - 1) % capacity`) with zero array element shifts and zero Java Collection classes.
+
+5. **Problem 5: The Fire Drill Exits (`FireDrillExits.java`)**
+   - **Core Concept**: Multi-Source Breadth-First Search (BFS) on 2D Floor Plan Grid
+   - **Complexity**: $O(R \times C)$ time vs. $O(R^2 \times C^2)$ repeated BFS; $O(R \times C)$ space.
+   - **Key Mechanism**: Enqueues all exits simultaneously at distance 0 before advancing outwards; the first time an open room is visited is guaranteed to be its shortest evacuation route.
+
+---
+
 ## How to Compile and Run
 
 ### Compile All Source Files
 ```bash
-javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java src/week8/*.java src/week8/*/*.java src/week9/*.java src/week10/*.java
+javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java src/week8/*.java src/week8/*/*.java src/week9/*.java src/week10/*.java src/week11/*.java
 ```
 
 ### Run Unified Test Suites
@@ -160,4 +196,7 @@ java -cp bin week9.Week9TestRunner
 
 # Run Week 10 Tests
 java -cp bin week10.Week10TestRunner
+
+# Run Week 11 Tests
+java -cp bin week11.Week11TestRunner
 ```
