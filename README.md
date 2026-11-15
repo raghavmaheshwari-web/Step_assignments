@@ -1,6 +1,6 @@
 # STEP Semester 3 - Assignments
 
-Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, Interfaces, Object Class Methods, Inner Classes, Composition, System Design, Data Structures, Linked Lists, Stacks, Queues, and Graph Search Assignments.
+Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented Programming (OOP), Inheritance, Polymorphism, Abstraction, Interfaces, Object Class Methods, Inner Classes, Composition, System Design, Data Structures, Linked Lists, Stacks, Queues, Graph Search, and Advanced Linked Lists Assignments.
 
 ## Repository Structure
 
@@ -36,13 +36,20 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
     │   ├── PalindromeTrainCode.java           # Problem 4: The Palindrome Train Code
     │   ├── PolynomialCalculator.java          # Problem 5: Polynomial Calculator
     │   └── Week10TestRunner.java              # Unified Week 10 test suite
-    └── week11/                                # Week 11: Stacks, Queues & BFS (Category A - 5 Problems)
-        ├── CanteenPriceStreak.java            # Problem 1: The Canteen Price Streak (Monotonic Stack)
-        ├── HackathonBannerPrinter.java        # Problem 2: The Hackathon Banner Printer (Two-Stack Decoding)
-        ├── QuizScoringFormula.java            # Problem 3: The Quiz Scoring Formula (Two-Stack Direct Evaluation)
-        ├── BusBay.java                        # Problem 4: The Bus Bay Ring (Circular Buffer Deque)
-        ├── FireDrillExits.java                # Problem 5: The Fire Drill Exits (Multi-Source BFS)
-        └── Week11TestRunner.java              # Unified Week 11 test suite
+    ├── week11/                                # Week 11: Stacks, Queues & BFS (Category A - 5 Problems)
+    │   ├── CanteenPriceStreak.java            # Problem 1: The Canteen Price Streak (Monotonic Stack)
+    │   ├── HackathonBannerPrinter.java        # Problem 2: The Hackathon Banner Printer (Two-Stack Decoding)
+    │   ├── QuizScoringFormula.java            # Problem 3: The Quiz Scoring Formula (Two-Stack Direct Evaluation)
+    │   ├── BusBay.java                        # Problem 4: The Bus Bay Ring (Circular Buffer Deque)
+    │   ├── FireDrillExits.java                # Problem 5: The Fire Drill Exits (Multi-Source BFS)
+    │   └── Week11TestRunner.java              # Unified Week 11 test suite
+    └── week12/                                # Week 12: Advanced Linked Lists & Cache Design (Category A - 5 Problems)
+        ├── DeliveryRouteLoopDetector.java     # Problem 1: Delivery Route Loop Detector (Floyd's Algorithm)
+        ├── ExamScriptBatches.java             # Problem 2: Exam Script Batches (k-Group In-Place Reversal)
+        ├── RecentPagesCache.java              # Problem 3: Recent Pages Cache (O(1) LRU Cache)
+        ├── LibraryReturnsByDueDay.java        # Problem 4: Library Returns by Due Day (Stable Merge Sort)
+        ├── TokenMirrorCheck.java              # Problem 5: Token Mirror Check (O(1) Palindrome In-Place Restore)
+        └── Week12TestRunner.java              # Unified Week 12 test suite
 ```
 
 ---
@@ -158,11 +165,40 @@ Comprehensive solutions to the STEP Semester 3 Java Programming, Object-Oriented
 
 ---
 
+## Week 12: Advanced Linked Lists & Cache Design (Category A)
+
+1. **Problem 1: Delivery Route Loop Detector (`DeliveryRouteLoopDetector.java`)**
+   - **Core Concept**: Floyd's Cycle-Finding Algorithm (Tortoise and Hare)
+   - **Complexity**: $O(N)$ time, $O(1)$ auxiliary space without HashSet, visited flags, or node modification.
+   - **Why Pointers Must Meet**: Once both pointers enter a loop of length $L$, the distance between them decreases by 1 node per iteration (fast moves 2, slow moves 1), guaranteeing they meet in at most $L$ steps. Loop start and length are determined with zero extra memory.
+
+2. **Problem 2: Exam Script Batches (`ExamScriptBatches.java`)**
+   - **Core Concept**: $k$-Group In-Place Linked List Reversal
+   - **Complexity**: $O(N)$ time, $O(1)$ auxiliary space (avoids $O(N/k)$ recursive call-stack space).
+   - **Tail Preservation**: Checks that a full group of $k$ nodes exists prior to reversing; any final group with fewer than $k$ nodes remains intact in original order.
+
+3. **Problem 3: Recent Pages Cache (`RecentPagesCache.java`)**
+   - **Core Concept**: $O(1)$ LRU Cache using Custom Doubly Linked List & HashMap
+   - **Complexity**: $O(1)$ time for both `get` and `put`; $O(\text{capacity})$ auxiliary space.
+   - **Why Singly Linked Lists Fail**: Deleting an arbitrary node in a singly linked list requires scanning from the head to find the predecessor node in $O(N)$ time. A doubly linked list provides direct `prev` pointers for instant $O(1)$ node excision.
+
+4. **Problem 4: Library Returns by Due Day (`LibraryReturnsByDueDay.java`)**
+   - **Core Concept**: In-place Stable Merge Sort on Singly Linked List
+   - **Complexity**: $O(N \log N)$ time, $O(\log N)$ recursive stack frames; zero array allocations.
+   - **Why Merge Sort Beats Quick Sort**: Linked lists can be split and merged in $O(1)$ extra space purely by relinking pointers. Quick Sort requires random-access indexing to select good pivots and suffers poor cache locality on non-contiguous nodes; Merge Sort guarantees $O(N \log N)$ worst-case time and inherent stability (`left.day <= right.day`).
+
+5. **Problem 5: Token Mirror Check (`TokenMirrorCheck.java`)**
+   - **Core Concept**: In-place Midpoint Reversal, Palindrome Comparison, and Exact Restoration
+   - **Complexity**: $O(N)$ time (~$2N$ operations), $O(1)$ auxiliary space.
+   - **Kiosk Memory Constraints**: Copying into an array or stack requires $O(N)$ memory, which violates the strict $O(1)$ constraint of embedded kiosk hardware. Reversing the second half in-place verifies the palindrome condition and leaves the list unaltered upon return.
+
+---
+
 ## How to Compile and Run
 
 ### Compile All Source Files
 ```bash
-javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java src/week8/*.java src/week8/*/*.java src/week9/*.java src/week10/*.java src/week11/*.java
+javac -d bin src/week1/*.java src/week2/*.java src/week3/*.java src/week4/*.java src/week5/*.java src/week6/*.java src/week7/*.java src/week8/*.java src/week8/*/*.java src/week9/*.java src/week10/*.java src/week11/*.java src/week12/*.java
 ```
 
 ### Run Unified Test Suites
@@ -199,4 +235,7 @@ java -cp bin week10.Week10TestRunner
 
 # Run Week 11 Tests
 java -cp bin week11.Week11TestRunner
+
+# Run Week 12 Tests
+java -cp bin week12.Week12TestRunner
 ```
